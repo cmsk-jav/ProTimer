@@ -1,6 +1,7 @@
 # PRO-TIMER
 [![Release][release-badge]][release]
 [![Issues][git-issue-badge]][git-issue-url]
+[![Twitter][twitter-badge]][twitter-url]
 
 **Technology used**
 
@@ -33,9 +34,9 @@ ___
 ### CALCULATE_TOTAL_TIME
  - Process the timesheet and extract the overall time that was spent on the selected project
  - The day and time are independent of each other. 
- > Consider that you have spent _20hrs_ in _3days_.  
- > The timer will still say that you have spent 
- > **3 DAY(S) 20:00:00 (HH:MM:SS)**
+   > Consider that you have spent _20hrs_ in _3days_.  
+   > The timer will still say that you have spent 
+   > **3 DAY(S) 20:00:00 (HH:MM:SS)**
  
 ### GENERATE_GRAPH ***`UNDER DEVELOPMENT`***
  - Shows the timesheet in a graph based manner
@@ -57,10 +58,10 @@ ___
 
 
 
-[release-badge]: https://img.shields.io/github/v/release/suresh-jav/test
-[release]: https://github.com/suresh-jav/test/releases/late
-[git-issue-badge]: https://img.shields.io/github/issues/suresh-jav/test
-[git-issue-url]: https://github.com/suresh-jav/test
+[release-badge]: https://img.shields.io/github/v/release/cmsk-jav/ProTimer
+[release]: https://github.com/cmsk-jav/ProTimer/releases/latest
+[git-issue-badge]: https://img.shields.io/github/issues/cmsk-jav/ProTimer
+[git-issue-url]: https://github.com/cmsk-jav/ProTimer/issues
 [java8-badge]: https://img.shields.io/badge/Java-8.0-blue
 [java-download-url]: https://adoptium.net/temurin/releases/?version=8
 [groovy4-badge]: https://img.shields.io/badge/Groovy-4.0-blue
@@ -68,3 +69,5 @@ ___
 [javafx8-badge]: https://img.shields.io/badge/JavaFX-8.0-blue
 [yaml-badge]: https://img.shields.io/badge/YAML-%20-brightgreen
 [pro-timer-img]: /src/res/image/Protimer-snap.png
+[twitter-badge]: https://img.shields.io/twitter/follow/cmskj?style=social
+[twitter-url]: https://twitter.com/cmskj
