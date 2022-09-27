@@ -1,0 +1,98 @@
+@font-face {
+    src: url("../font/BLUEBOLD.TTF");
+}
+*{
+	-fx-font-family: "Blue Highway";
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+}
+#rootWindow{
+
+}
+#contentpane{
+	-fx-background-color:  #191919;
+
+	-fx-border-radius: 0 0 15 15;
+	-fx-border-width: 1;
+	-fx-background-radius:0 0 15 15;
+	-fx-border-color: #545454;
+	-fx-background-image:  url("../icons/bg-banner-gray.png");
+}
+#titlepane{
+
+}
+.box{
+	-fx-background-radius: 10px;
+}
+
+#projectName_lbl{
+	-fx-background-color: #ff4e32;
+	-fx-font-size: 15px;
+	-fx-prompt-text-fill: white;
+}
+#changeProject_btn{
+	
+}
+.projectBtn{
+	-fx-background-color: #ffc51a;
+	-fx-font-size: 15px;
+}
+#navigationPane{
+	-fx-background-color: transparent;
+}
+.img{
+	-fx-opacity: .5;
+}
+.img:hover{
+	-fx-opacity: .8;
+}
+
+#timer_lbl{
+	-fx-font-size: 45px;
+}
+#currentDate_lbl{
+}
+#resetproject_btn{
+	-fx-background-color: #ff4e32;
+}
+#calcTotalTime_btn{
+
+}
+#genGraph_btn{
+	-fx-background-color: #ff4e32;
+}
+#totalDays_lbl{
+}
+#totalhrs_lbl{
+	
+}
+.timerStatus_lbl{
+	-fx-font-size: 18px;
+}
+
+#closePane{
+	-fx-background-radius: 10px;
+	-fx-background-color: white;
+}
+#closeWarning_lbl{
+	-fx-font-size:14px;-fx-font-family: 'Blue Highway';-fx-font-weight: bold ; -fx-text-fill: black;
+}
+#yes_btn{
+	-fx-font-family: 'Blue Highway';-fx-text-fill: white;-fx-background-color: #ff4e32;-fx-font-size: 17px;
+}
+#no_btn{
+	-fx-font-family: 'Blue Highway';-fx-text-fill: white;-fx-background-color: #ffc51a;-fx-font-size: 17px;
+}
+.recentProjectPane{
+	-fx-background-color: white;
+	-fx-background-radius:  10px;
+}
+.recentListEntry{
+	-fx-text-fill: black;
+	-fx-font-size: 7px;
+	-fx-border-width:0 0 3px 0;
+	-fx-border-color: black;
+	-fx-background-color: white
+}
+#logTime{
+}
