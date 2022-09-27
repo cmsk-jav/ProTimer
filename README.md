@@ -14,7 +14,7 @@ So that you can find the amount of time spent on the project
 
 ![ProTimer][pro-timer-img]
 
-## Functions
+## Functions 
 ___
 ###  LOGGER
   - Once you select a project, Our application will check whether the pro-timer was already initiated or not.
