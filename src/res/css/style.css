@@ -84,8 +84,10 @@
 	-fx-font-family: 'Blue Highway';-fx-text-fill: white;-fx-background-color: #ffc51a;-fx-font-size: 17px;
 }
 .recentProjectPane{
-	-fx-background-color: white;
-	-fx-background-radius:  10px;
+	/*-fx-background-color: white;*/
+	-fx-background-color: #545454;
+	-fx-background-radius:9;
+	-fx-border-radius: 9;
 }
 .recentListEntry{
 	-fx-text-fill: black;

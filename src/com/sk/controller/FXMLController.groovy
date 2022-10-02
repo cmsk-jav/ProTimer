@@ -359,7 +359,7 @@ class FXMLController implements Initializable {
     def createEntry( final String locationEntry, EventHandler hoverStart, EventHandler hoverEnd, EventHandler onAction){
         Insets insets = new Insets(0,2,0,2)
         Label entry_lbl = new Label(locationEntry)
-        entry_lbl.getStyleClass().add("recentListEntry")
+        //entry_lbl.getStyleClass().add("recentListEntry")
         entry_lbl.setPrefWidth(312)
         entry_lbl.setPrefHeight(20)
         entry_lbl.setPadding(insets)
@@ -396,8 +396,10 @@ class FXMLController implements Initializable {
         boolean containsEntry = Entry.appController.recentHistoryList.size() > 0;
 
         if (containsEntry){
-            String onHoverStyle = "-fx-border-width:0 0 0 0; -fx-font-size: 12px;-fx-font-weight: bold;-fx-background-color: #191919;-fx-text-fill: white;-fx-background-radius: 10px" as String
-            String onDefaultStyle = "-fx-border-width:0 0 3px 0; -fx-font-size: 12px;-fx-background-radius: 10px" as String
+            String onDefaultStyle = "-fx-font-size: 12px;-fx-font-weight: bold;-fx-background-color: #191919;-fx-text-fill: white;-fx-background-radius: 9" as String
+            String onHoverStyle = "-fx-font-size: 12px;-fx-background-color: white;-fx-text-fill: #191919;-fx-background-radius: 9" as String //-fx-border-width:0 0 3px 0;
+//            String onHoverStyle = "-fx-font-size: 12px;-fx-font-weight: bold;-fx-background-color: #191919;-fx-text-fill: white;-fx-background-radius: 3" as String
+
             EventHandler hoverStart = {
                 Label lbl = it.getSource() as Label
                 lbl.setStyle(onHoverStyle)
@@ -420,7 +422,7 @@ class FXMLController implements Initializable {
             }
             for(String entry : Entry.appController.recentHistoryList){
                 HBox pane1 = new HBox()
-                pane1.setPadding(new Insets(0, 2, 0, 2))
+                pane1.setPadding(new Insets(2, 2, 0, 2))
                 Label entryNode = createEntry(entry,hoverStart,hoverEnd,onAction)
                 entryNode.setStyle(onDefaultStyle)
                 pane1.getChildren().add(entryNode)
@@ -438,9 +440,9 @@ class FXMLController implements Initializable {
         }
 
         AnchorPane browsePane = new AnchorPane()
-        browsePane.setPadding(new Insets(0, 2, 0, 2))
-        String onHoverStyle = "-fx-border-width:0 0 0 0;-fx-background-color: #ff4e32 ;-fx-font-size: 15px; -fx-text-fill: white;-fx-background-radius: 10px" as String
-        String defaultStyle = "-fx-border-width:0 0 0 0;-fx-background-color: #ffc51a;-fx-font-size: 15px; -fx-text-fill: white;-fx-background-radius: 10px" as String
+        browsePane.setPadding(new Insets(2, 2, 0, 2))
+        String onHoverStyle = "-fx-background-color: #ff4e32 ;-fx-font-size: 15px; -fx-text-fill: white;-fx-background-radius: 9" as String
+        String defaultStyle = "-fx-background-color: #ffc51a;-fx-font-size: 15px; -fx-text-fill: white;-fx-background-radius: 9" as String
 
         EventHandler onDefault = (it)-> (it.getSource() as Label).setStyle(defaultStyle)
         EventHandler onHover = (it)-> (it.getSource() as Label).setStyle(onHoverStyle)
@@ -453,7 +455,7 @@ class FXMLController implements Initializable {
             if (folder == null) return
             Entry.appController.loadProject(folder.getAbsolutePath())
         }
-        Label browse = createEntry("Choose Project...", onHover, onDefault, onAction)
+        Label browse = createEntry("Choose Project", onHover, onDefault, onAction)
         browse.setLayoutX(65)
         browse.setPrefWidth(100)
 //        browsePane.setPrefHeight(30)
@@ -469,6 +471,7 @@ class FXMLController implements Initializable {
         })
         isRecentListOpened.set(true)
         layout_2.getChildren().add(recentProjectPane)
+        layout_2.getChildren().each {println(it)}
         event.consume()
     }
 

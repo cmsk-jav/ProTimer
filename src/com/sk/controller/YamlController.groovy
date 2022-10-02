@@ -15,6 +15,7 @@
 
 package com.sk.controller
 
+import com.sk.Entry
 import groovy.yaml.YamlSlurper
 import org.yaml.snakeyaml.DumperOptions
 import org.yaml.snakeyaml.Yaml
@@ -54,8 +55,18 @@ class YamlController {
         this.projectPath = projectPath
         this.templateName = templateName
         yamlFile = new File(projectPath+templateName)
-        if (!yamlFile.exists()) yamlFile.createNewFile()
+        if (!yamlFile.exists()){
+            yamlFile.createNewFile()
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(yamlFile))
+            addHeader(bufferedWriter)
+            bufferedWriter.flush()
+        }
         return this
+    }
+    def addHeader(BufferedWriter bufferedWriter){
+        bufferedWriter.writeLine("# PRO-TIMER ")
+        bufferedWriter.writeLine("# PROJECT LOCATION: ${Entry.appController.projectPath.getAbsolutePath()}")
+        bufferedWriter.newLine()
     }
     /**
      * This class uses Builder-Pattern to create an instance
@@ -104,6 +115,7 @@ class YamlController {
         }
 
         writer  = new BufferedWriter(new FileWriter(yamlFile))
+        addHeader(writer)
         //config = sortData(config)
         yamlWriter.dump(config, writer)
         writer.flush()
@@ -159,6 +171,7 @@ class YamlController {
                 println("Problem to parse Yaml document...")
         }
         writer  = new BufferedWriter(new FileWriter(yamlFile))
+        addHeader(writer)
         config = sortData(config)
         yamlWriter.dump(config, writer)
         writer.flush()

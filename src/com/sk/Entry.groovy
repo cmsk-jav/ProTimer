@@ -50,7 +50,7 @@ class Entry extends Application{
                         "$resourcePath/layouts/MainPage.fxml"
                 )
         );
-        font = Font.loadFont(getClass().getResourceAsStream("$resourcePath/font/BLUEBOLD.TTF"), 60);
+        font = Font.loadFont(getClass().getResourceAsStream("$resourcePath/font/BLUEBOLD.TTF"), 60)
         rootPane = loader.load() as AnchorPane
         fxmlController = loader.getController() as FXMLController
         appController = new AppController();
