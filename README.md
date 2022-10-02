@@ -2,6 +2,7 @@
 [![Release][release-badge]][release]
 [![Issues][git-issue-badge]][git-issue-url]
 [![Twitter][twitter-badge]][twitter-url]
+[![Buy-me-A-Coffee][coffee-cdn]][coffee-url]
 
 **Technology used**
 
@@ -57,7 +58,6 @@ ___
   download and add the dependency separately.
 
 
-
 [release-badge]: https://img.shields.io/github/v/release/cmsk-jav/ProTimer
 [release]: https://github.com/cmsk-jav/ProTimer/releases/latest
 [git-issue-badge]: https://img.shields.io/github/issues/cmsk-jav/ProTimer
@@ -69,5 +69,7 @@ ___
 [javafx8-badge]: https://img.shields.io/badge/JavaFX-8.0-blue
 [yaml-badge]: https://img.shields.io/badge/YAML-%20-brightgreen
 [pro-timer-img]: /src/res/image/Protimer-snap.png
-[twitter-badge]: https://img.shields.io/twitter/follow/cmskj?style=social
+[twitter-badge]: https://img.shields.io/twitter/url?label=Follow%20%40cmskj&style=social&url=https%3A%2F%2Ftwitter.com%2Fcmskj
 [twitter-url]: https://twitter.com/cmskj
+[coffee-cdn]: https://img.shields.io/badge/Buy--Me--A--Coffee-%E2%98%BA%EF%B8%8F-orange
+[coffee-url]: https://www.buymeacoffee.com/cmsuresh
