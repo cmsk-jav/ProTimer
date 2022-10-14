@@ -51,12 +51,7 @@ ___
  - You can also directly open the **Project-Stats.yml** file where you can find the timesheet.
 
 # Developer Notes
-- Java 8 comes with pre-build of JAVAFX library.
-- As u all know Oracle removed JavaFX from JDK-11 onwards to pull out 
-  non-core modules and make them stand up as independent module.
-- If you guys want to run my application on Java 11 or greater, Then please 
-  download and add the dependency separately.
-
+- Needs Java-11 or higher and Groovy 4.0+ requires to run this application
 
 [release-badge]: https://img.shields.io/github/v/release/cmsk-jav/ProTimer
 [release]: https://github.com/cmsk-jav/ProTimer/releases/latest
@@ -68,7 +63,7 @@ ___
 [groovy-download-url]:https://groovy.apache.org/download.html
 [javafx8-badge]: https://img.shields.io/badge/JavaFX-8.0-blue
 [yaml-badge]: https://img.shields.io/badge/YAML-%20-brightgreen
-[pro-timer-img]: /src/res/image/Protimer-snap.png
+[pro-timer-img]: src/main/resources/res/image/Protimer-snap.png
 [twitter-badge]: https://img.shields.io/twitter/url?label=Follow%20%40cmskj&style=social&url=https%3A%2F%2Ftwitter.com%2Fcmskj
 [twitter-url]: https://twitter.com/cmskj
 [coffee-cdn]: https://img.shields.io/badge/Buy--Me--A--Coffee-%E2%98%BA%EF%B8%8F-orange
