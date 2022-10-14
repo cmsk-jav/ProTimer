@@ -13,11 +13,11 @@
 
  */
 
-package com.sk
+package com.sk.protimer
 
-import com.sk.controller.AppController
-import com.sk.controller.FXMLController
-import com.sk.listener.AppListener
+import com.sk.protimer.controller.AppController
+import com.sk.protimer.controller.FXMLController
+import com.sk.protimer.listener.AppListener
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
@@ -32,7 +32,7 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 
 class Entry extends Application{
-    static AnchorPane rootPane
+    public static AnchorPane rootPane
     Scene scene
     static FXMLController fxmlController
     AppListener listener
@@ -44,16 +44,19 @@ class Entry extends Application{
     AnchorPane titleBar;
     @Override
     void init() throws Exception {
-        super.init()
-        FXMLLoader loader = new FXMLLoader(
+        //super.init()
+        appController = new AppController()
+        /*FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "$resourcePath/layouts/MainPage.fxml"
                 )
-        );
+        )*/
+        FXMLLoader loader = new FXMLLoader(
+                appController.getPage("MainPage")
+        )
         font = Font.loadFont(getClass().getResourceAsStream("$resourcePath/font/BLUEBOLD.TTF"), 60)
         rootPane = loader.load() as AnchorPane
         fxmlController = loader.getController() as FXMLController
-        appController = new AppController();
         listener = new AppListener(fxmlController,appController)
         scene = new Scene(rootPane,WIDTH,HEIGHT)
         titleBar = searchNode("#titlepane") as AnchorPane
@@ -69,7 +72,7 @@ class Entry extends Application{
     @Override
     void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("$resourcePath/icons/timer.png")))
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("$resourcePath/icons/timer.png"),48,48,true,true))
         primaryStage.setOnCloseRequest(e->{
             fxmlController.createAlertWindow(rootPane.getScene().getWindow())
             e.consume()

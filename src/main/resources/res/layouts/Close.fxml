@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="closePane" prefHeight="75.0" prefWidth="260.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sk.controller.FXMLController">
+<AnchorPane id="closePane" prefHeight="75.0" prefWidth="260.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sk.protimer.controller.FXMLController">
    <children>
       <Label id="closeWarning_lbl" fx:id="closeWarning_lbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="260.0" styleClass="box" text="ARE YOU SURE?">
          <font>

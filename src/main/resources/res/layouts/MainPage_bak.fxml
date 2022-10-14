@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="rootWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sk.controller.FXMLController">
+<AnchorPane id="rootWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sk.protimer.controller.FXMLController">
    <children>
       <AnchorPane id="titlepane" fx:id="titleBar" maxHeight="25.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
          <children>
@@ -103,3 +103,4 @@
       </AnchorPane>
    </children>
 </AnchorPane>
+

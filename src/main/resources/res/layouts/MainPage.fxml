@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="rootWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sk.protimer.controller.FXMLController">
+   <children>
+      <AnchorPane id="titlepane" fx:id="titleBar" maxHeight="25.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="600.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../icons/Titlebar.png" />
+               </image>
+            </ImageView>
+            <HBox id="navigationPane" alignment="CENTER_RIGHT" layoutX="405.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="195.0">
+               <children>
+                  <ImageView fx:id="minimizeTray_imgView" fitHeight="12.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
+                     <image>
+                        <Image url="@../icons/Tray.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="minimize_imgView" fitHeight="12.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
+                     <image>
+                        <Image url="@../icons/Minimize.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="quit_imgView" fitHeight="12.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
+                     <image>
+                        <Image url="@../icons/Quit.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="contentpane" fx:id="rootPane" layoutY="25.0" maxHeight="175.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="600.0">
+         <children>
+            <Label id="projectName_lbl" fx:id="projectLocation_lbl" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="12.0" prefHeight="25.0" prefWidth="322.0" text="Choose Ur Project" styleClass="box" />
+            <Button id="changeProject_btn" fx:id="changeProject_btn" layoutX="360.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="CHANGE PROJECT" textAlignment="CENTER" wrapText="true">
+               <styleClass>
+                  <String fx:value="box" />
+                  <String fx:value="projectBtn" />
+               </styleClass>
+            </Button>
+            <Button id="newProject_btn" fx:id="newProject_btn" layoutX="492.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="NEW PROJECT" textAlignment="CENTER" wrapText="true">
+               <styleClass>
+                  <String fx:value="box" />
+                  <String fx:value="projectBtn" />
+               </styleClass>
+            </Button>
+            <AnchorPane id="runningTimerPane" layoutY="45.0" prefHeight="103.0" prefWidth="600.0">
+               <children>
+                  <Label id="timer_lbl" fx:id="localTimer_lbl" alignment="CENTER" contentDisplay="CENTER" layoutX="183.0" layoutY="16.0" prefHeight="44.0" prefWidth="181.0" text="00:00:00" />
+                  <Label id="currentDate_lbl" fx:id="currentDate_lbl" alignment="CENTER" layoutX="229.0" layoutY="2.0" prefHeight="12.0" prefWidth="97.0" styleClass="timerStatus_lbl" text="MON DD, YYYY" />
+                  <ImageView id="logTime" fx:id="play_imgView" fitHeight="31.0" fitWidth="52.0" layoutX="360.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Play.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="113.0" prefHeight="57.0" prefWidth="600.0">
+               <children>
+                  <Button id="resetproject_btn" fx:id="resetProject_btn" layoutX="64.0" layoutY="7.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="RESET PROJECT" textAlignment="CENTER" wrapText="true">
+                     <styleClass>
+                        <String fx:value="box" />
+                        <String fx:value="projectBtn" />
+                     </styleClass>
+                  </Button>
+                  <Button id="calcTotalTime_btn" fx:id="calculateTime_btn" layoutX="197.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="CALCULATE TOTAL TIME" textAlignment="CENTER" wrapText="true">
+                     <styleClass>
+                        <String fx:value="box" />
+                        <String fx:value="projectBtn" />
+                     </styleClass>
+                  </Button>
+                  <Button id="genGraph_btn" fx:id="genGraph_btn" layoutX="360.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="GENERATE GRAPH" textAlignment="CENTER" wrapText="true">
+                     <styleClass>
+                        <String fx:value="box" />
+                        <String fx:value="projectBtn" />
+                     </styleClass>
+                  </Button>
+                  <Label id="totalDays_lbl" fx:id="totalDays_lbl" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="109.0" layoutY="39.0" prefHeight="19.0" prefWidth="115.0" styleClass="timerStatus_lbl" text="0 DAY(S)" />
+                  <Label id="totalhrs_lbl" fx:id="totalTime_lbl" contentDisplay="CENTER" layoutX="237.0" layoutY="40.0" prefHeight="16.0" prefWidth="233.0" styleClass="timerStatus_lbl" text="00:00:00 (HH:MM:SS)" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
