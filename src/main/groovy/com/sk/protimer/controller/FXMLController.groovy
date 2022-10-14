@@ -13,9 +13,9 @@
 
  */
 
-package com.sk.controller
+package com.sk.protimer.controller
 
-import com.sk.Entry
+import com.sk.protimer.Entry
 import javafx.application.Platform
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
@@ -23,6 +23,7 @@ import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
 import javafx.geometry.Insets
+import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
@@ -51,7 +52,7 @@ class FXMLController implements Initializable {
      * referring all the components from the FXML file
      */
     @FXML
-    public TextField projectLocation_Txtfield
+    public Label projectLocation_lbl
     @FXML
     public Button changeProject_btn
     @FXML
@@ -86,13 +87,7 @@ class FXMLController implements Initializable {
     java.awt.TrayIcon applicationTray
     final java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
 
-    static def getPage(final String page) throws IOException {
-        URL url = this.class.getResource("${Entry.resourcePath}/layouts/" + page + ".fxml");
-        if (url == null) {
-            throw new FileNotFoundException("FXML File " + page + " Not Found");
-        }
-        return FXMLLoader.load(url);
-    }
+
 
     /**
      * Choose the project folder from explorer
@@ -163,7 +158,10 @@ class FXMLController implements Initializable {
      * }
      */
     void createCloseAlert(int change, Window e,EventHandler yesAction, EventHandler noAction){
-        def pane = getPage("Close") as AnchorPane
+        def pane = FXMLLoader.load(Entry.appController.getPage("Close")) as AnchorPane
+       /* def pane = FXMLLoader.load(getClass().getResource(
+                "${Entry.resourcePath}/layouts/Close.fxml"
+        )) as AnchorPane*/
         /*def pane = FXMLLoader.load(
                 getClass().getResource("$Entry.resourcePath/layouts/Close.fxml")) as AnchorPane*/
         stage = new Stage()
@@ -214,7 +212,7 @@ class FXMLController implements Initializable {
      * Create alert if project config was missing
      */
     def createWarning(int severity, Window e){
-        def pane = getPage("Close") as AnchorPane
+        def pane = FXMLLoader.load(Entry.appController.getPage("Close")) as AnchorPane
         /*def pane = FXMLLoader.load(
                 getClass().getResource("$Entry.resourcePath/layouts/Close.fxml")) as AnchorPane*/
         stage = new Stage()
@@ -268,8 +266,9 @@ class FXMLController implements Initializable {
      */
     private def createTray(){
         if (applicationTray!=null && tray.getTrayIcons().contains(applicationTray)) return
-        File imageFile = new File( Paths.getResource("$Entry.resourcePath/icons/").getText()+"timer.png")
-        java.awt.Image image = java.awt.Toolkit.getDefaultToolkit().getImage(URI.getResource("$Entry.resourcePath/icons/timer.png"))
+        //File imageFile = new File( Paths.getResource("$Entry.resourcePath/icons/").getText()+"timer.png")
+//        java.awt.Image image = java.awt.Toolkit.getDefaultToolkit().getImage(URI.getResource("$Entry.resourcePath/icons/timer.png"))
+        java.awt.Image image = java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("$Entry.resourcePath/icons/timer.png"))
         java.awt.PopupMenu popup = new java.awt.PopupMenu("Pro-Timer")
         popup.setFont(new Font("Blue Highway", Font.BOLD, 11));
         applicationTray = new java.awt.TrayIcon(image, "PRO-TIMER", popup)
@@ -456,10 +455,15 @@ class FXMLController implements Initializable {
             Entry.appController.loadProject(folder.getAbsolutePath())
         }
         Label browse = createEntry("Choose Project", onHover, onDefault, onAction)
+        browse.setPrefWidth(312)
+        browse.setPrefHeight(20)
         browse.setLayoutX(65)
         browse.setPrefWidth(100)
+        AnchorPane.setTopAnchor(browse,1)
+        AnchorPane.setBottomAnchor(browse,5)
 //        browsePane.setPrefHeight(30)
         browse.setStyle(defaultStyle)
+        browse.setAlignment(Pos.CENTER)
         browsePane.getChildren().add(browse)
         recentProjectPane.getChildren().add(browsePane)
         recentProjectPane.setOnMouseExited(e->{

@@ -13,9 +13,9 @@
 
  */
 
-package com.sk.controller
+package com.sk.protimer.controller
 
-import com.sk.Entry
+import com.sk.protimer.Entry
 import groovy.yaml.YamlSlurper
 import org.yaml.snakeyaml.DumperOptions
 import org.yaml.snakeyaml.Yaml
@@ -35,7 +35,8 @@ class YamlController {
     LocalDateTime logStartTime
     def year,mon
     final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy HH:mm:ss")
-    final static String datePattern = "MMM d, yyyy"
+//    final static String datePattern = "MMM d, yyyy"
+    final static DateTimeFormatter datePattern = DateTimeFormatter.ofPattern("MMM d, yyyy")
     final static Map<String,Integer> indexing = ["Jan":1, "Feb":2, 'Mar':3, "Apr":4, "May":5, "Jun":6, "Jul":7,
                                     "Aug":8, "Sep":9, "Oct":10, "Nov":11, "Dec":12]
     String projectPath, templateName
@@ -84,7 +85,7 @@ class YamlController {
      */
     void addStopTimer( LocalDateTime stopTime){
         year = "Y_"+stopTime.getYear()
-        mon = logStartTime.format("MMM")  //months[stopTime.getMonthValue()]
+        mon = logStartTime.format(DateTimeFormatter.ofPattern("MMM"))  //months[stopTime.getMonthValue()]
         def config = parser.parse(yamlFile) as LinkedHashMap
         if (!yamlFile.exists()){
             println "Configuration file is missing from the project folder $projectPath..."
@@ -130,7 +131,7 @@ class YamlController {
 
         this.logStartTime = startTime
         year = "Y_"+logStartTime.getYear()
-        mon =  logStartTime.format("MMM")// months[logStartTime.getMonthValue()]
+        mon =  logStartTime.format(DateTimeFormatter.ofPattern("MMM"))// months[logStartTime.getMonthValue()]
         def config
         if (!yamlFile.exists()){
             println "Creating New Yaml file..."
@@ -139,7 +140,14 @@ class YamlController {
             config[year]= dumpInitialData(true)
         }else {
             //Need to search the file
-            config = parser.parse(yamlFile) as LinkedHashMap
+//            config = parser.parse(yamlFile) as LinkedHashMap
+            try {
+                config = parser.parse(yamlFile) as LinkedHashMap
+            }catch(Exception ex) {
+                //println(ex.getMessage())
+                config = new LinkedHashMap()
+            }
+
             if (config!=null){
                 def yearBasedEntry = config[year]
                 if (yearBasedEntry!=null && yearBasedEntry.size() > 0){
@@ -172,7 +180,8 @@ class YamlController {
         }
         writer  = new BufferedWriter(new FileWriter(yamlFile))
         addHeader(writer)
-        config = sortData(config)
+        if (config!=null)
+            config = sortData(config)
         yamlWriter.dump(config, writer)
         writer.flush()
         writer.close()
@@ -273,10 +282,16 @@ class YamlController {
     Duration loadOverallTimeElapsed() {
         Duration duration = Duration.of(0,ChronoUnit.SECONDS)
         if (!yamlFile.exists()){
+            println("File not exists..")
             return duration
         }
 
-        def config = parser.parse(yamlFile) as LinkedHashMap
+//        def config = parser.parse(yamlFile) as LinkedHashMap
+        def config
+        try {
+            config = parser.parse(yamlFile) as LinkedHashMap
+        }catch(Exception ex) {
+        }
         if (config!=null){
             //println "Config=>$config"
             config.keySet().stream().each {

@@ -13,10 +13,11 @@
 
  */
 
-package com.sk.controller
+package com.sk.protimer.controller
 
-import com.sk.Entry
+import com.sk.protimer.Entry
 import javafx.application.Platform
+import javafx.fxml.FXMLLoader
 import javafx.scene.Node
 import javafx.stage.Stage
 
@@ -150,7 +151,7 @@ class AppController {
                 if (projectConfig!=null && projectConfig.size() > 0){
                     projectPath = folder
                     String tmp = folder.getAbsolutePath()
-                    Entry.fxmlController.projectLocation_Txtfield.setText(tmp.substring(tmp.lastIndexOf(File.separator)+1))
+                    Entry.fxmlController.projectLocation_lbl.setText(tmp.substring(tmp.lastIndexOf(File.separator)+1))
                     changeRecentListOrder(folder)
                     createController()
                     resetElapsedTimer()
@@ -221,6 +222,7 @@ class AppController {
      * Extracting Overall-time elapsed by the project by analysing the yaml config file.
      */
     void overAllTimeElapsedRetrieval(){
+        if (loggerStarted.get() || projectPath==null) return
         overAllTimeElapsed = yamlController.loadOverallTimeElapsed()
         Entry.fxmlController.updateElapsedTime(yamlController.extractTimeFromDuration(overAllTimeElapsed))
     }
@@ -266,7 +268,7 @@ class AppController {
      */
     void creatingNewProjectConfig(File folder) {
         String tmp = folder.getAbsolutePath()
-        Entry.fxmlController.projectLocation_Txtfield.setText(tmp.substring(tmp.lastIndexOf(File.separator)+1))
+        Entry.fxmlController.projectLocation_lbl.setText(tmp.substring(tmp.lastIndexOf(File.separator)+1))
         projectPath = folder
         Files.createDirectories(Paths.get(projectPath.getAbsolutePath()+File.separator+folderPattern))
         changeRecentListOrder(folder)
@@ -317,6 +319,15 @@ class AppController {
     void resetProjectData(){
         File file = new File(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator+templateName)
         FileChannel.open(Paths.get(file.getAbsolutePath()), StandardOpenOption.WRITE).truncate(0).close()
+    }
+
+    def getPage(final String page) throws IOException {
+//        URL url = this.class.getResource("${Entry.resourcePath}/layouts/" + page + ".fxml");
+        URL url = getClass().getResource("${Entry.resourcePath}/layouts/${page}.fxml");
+        if (url == null) {
+            throw new FileNotFoundException("FXML File " + page + " Not Found");
+        }
+        return url;
     }
 
 }

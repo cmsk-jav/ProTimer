@@ -13,7 +13,7 @@
 
  */
 
-package com.sk
+package com.sk.protimer
 
 class ApplicationEntry{
     static void main(String[] args) {

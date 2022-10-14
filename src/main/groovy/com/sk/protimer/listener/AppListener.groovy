@@ -13,10 +13,10 @@
 
  */
 
-package com.sk.listener
+package com.sk.protimer.listener
 
-import com.sk.controller.AppController
-import com.sk.controller.FXMLController
+import com.sk.protimer.controller.AppController
+import com.sk.protimer.controller.FXMLController
 import javafx.scene.Node
 
 class AppListener {
@@ -35,7 +35,16 @@ class AppListener {
         setProjectLocationListener()
         setExecutionListener()
         setAnalyticsListener()
+        setDisabler()
     }
+
+    private void setDisabler(){
+        fxmlController.projectLocation_lbl.setOnMouseClicked(event->{
+            println("On Mouse")
+            event.consume()
+        })
+    }
+
     private def setAnalyticsListener(){
         fxmlController.calculateTime_btn.setOnAction(e->appController.overAllTimeElapsedRetrieval())
         fxmlController.resetProject_btn.setOnAction(e->appController.resetProject())
