@@ -40,6 +40,8 @@ class YamlController {
     final static Map<String,Integer> indexing = ["Jan":1, "Feb":2, 'Mar':3, "Apr":4, "May":5, "Jun":6, "Jul":7,
                                     "Aug":8, "Sep":9, "Oct":10, "Nov":11, "Dec":12]
     String projectPath, templateName
+    // DayWiseCounter for calculatingOverallTime
+    private long dayWiseCount
 
     private YamlController(){
         options = new DumperOptions()
@@ -280,6 +282,7 @@ class YamlController {
      * @return Duration - Contains sum up of full timesheet
      */
     Duration loadOverallTimeElapsed() {
+        dayWiseCount = 0 //resetting the day count
         Duration duration = Duration.of(0,ChronoUnit.SECONDS)
         if (!yamlFile.exists()){
             println("File not exists..")
@@ -303,6 +306,7 @@ class YamlController {
                         String monthItr->{
                             // println "MonthItr==> $monthItr"
                             def daysListForMonth = config[yearItr][monthItr] as List<Map<String,String>>
+                            dayWiseCount += daysListForMonth.size()
                             daysListForMonth.stream().each {
                                 duration = duration.plusSeconds(parse(it.get("Elapsed")))
                             }
@@ -312,6 +316,11 @@ class YamlController {
             }
         }
         return duration
+    }
+
+    //Passing dayWiseCount
+    long getDayWiseCount(){
+        return dayWiseCount
     }
 
     static long convertMapToSeconds(Map<String, Long> data) {

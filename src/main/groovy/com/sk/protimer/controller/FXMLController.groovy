@@ -494,8 +494,15 @@ class FXMLController implements Initializable {
     /**
      * Update over-all elapsed time
      */
-    void updateElapsedTime(Map<String,Long> data) {
-        totalDays_lbl.setText("${data.get("D")} DAY(S)")
+    void updateElapsedTime(Map<String,Long> data , YamlController yamlController) {
+       /*
+         // Calculating the days based on the aggregation of time -- OCT 16, 2022
+         totalDays_lbl.setText("${data.get("D")} DAY(S)")
+        */
+
+        //Calculating the days based on the no.of days spend and irrespective of how much time they spend
+        totalDays_lbl.setText("${yamlController.getDayWiseCount()} DAY(S)")
+
         totalTime_lbl.setText("${YamlController.formatDigit(data.get("H"))}:${YamlController.formatDigit(data.get("M"))}:${YamlController.formatDigit(data.get("S"))} (HH:MM:SS)")
 
     }

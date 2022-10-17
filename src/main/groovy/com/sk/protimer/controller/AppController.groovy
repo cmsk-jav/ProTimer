@@ -224,7 +224,7 @@ class AppController {
     void overAllTimeElapsedRetrieval(){
         if (loggerStarted.get() || projectPath==null) return
         overAllTimeElapsed = yamlController.loadOverallTimeElapsed()
-        Entry.fxmlController.updateElapsedTime(yamlController.extractTimeFromDuration(overAllTimeElapsed))
+        Entry.fxmlController.updateElapsedTime(yamlController.extractTimeFromDuration(overAllTimeElapsed), yamlController)
     }
 
     /*void updateOverAllTimeElapsed(Duration duration){
