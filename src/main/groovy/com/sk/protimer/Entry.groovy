@@ -42,6 +42,11 @@ class Entry extends Application{
     final int WIDTH = 600, HEIGHT = 200
     static Font font
     AnchorPane titleBar;
+    static Entry entryInstance
+    def browse(final String url) {
+        getHostServices().showDocument(url)
+    }
+
     @Override
     void init() throws Exception {
         //super.init()
@@ -68,9 +73,12 @@ class Entry extends Application{
     void stop() throws Exception {
         super.stop()
     }
-
+    static Entry getInstance(){
+        return this
+    }
     @Override
     void start(Stage primaryStage) throws Exception {
+        entryInstance = this
         this.primaryStage = primaryStage
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("$resourcePath/icons/timer.png"),48,48,true,true))
         primaryStage.setOnCloseRequest(e->{

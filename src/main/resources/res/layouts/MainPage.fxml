@@ -18,34 +18,54 @@
                   <Image url="@../icons/Titlebar.png" />
                </image>
             </ImageView>
-            <HBox id="navigationPane" alignment="CENTER_RIGHT" layoutX="405.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="195.0">
+            <HBox id="navigationPane" alignment="CENTER_RIGHT" layoutX="495.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="105.0">
                <children>
-                  <ImageView fx:id="minimizeTray_imgView" fitHeight="12.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
-                     <image>
-                        <Image url="@../icons/Tray.png" />
-                     </image>
+                  <Button fx:id="minimizeTray_btn" mnemonicParsing="false" prefHeight="20.0" prefWidth="32.0">
+                     <styleClass>
+                        <String fx:value="btn_tray" />
+                        <String fx:value="nav-button" />
+                     </styleClass>
                      <HBox.margin>
-                        <Insets right="20.0" />
+                        <Insets />
                      </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="minimize_imgView" fitHeight="12.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
-                     <image>
-                        <Image url="@../icons/Minimize.png" />
-                     </image>
+                  </Button>
+                  <Button fx:id="minimize_btn" mnemonicParsing="false" prefHeight="20.0" prefWidth="32.0">
+                     <styleClass>
+                        <String fx:value="btn_minimise" />
+                        <String fx:value="nav-button" />
+                     </styleClass>
                      <HBox.margin>
-                        <Insets right="20.0" />
+                        <Insets left="5.0" />
                      </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="quit_imgView" fitHeight="12.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
-                     <image>
-                        <Image url="@../icons/Quit.png" />
-                     </image>
+                  </Button>
+                  <Button fx:id="quit_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="32.0">
+                     <styleClass>
+                        <String fx:value="btn_close" />
+                        <String fx:value="nav-button" />
+                     </styleClass>
                      <HBox.margin>
-                        <Insets right="20.0" />
+                        <Insets />
                      </HBox.margin>
-                  </ImageView>
+                  </Button>
                </children>
             </HBox>
+            <HBox prefHeight="25.0" prefWidth="105.0" styleClass="aboutPane">
+               <children>
+                  <ImageView fx:id="logo_imgView" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="logo">
+                     <image>
+                        <Image url="@../icons/runtime_128X128.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="3.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="25.0" prefWidth="100.0" styleClass="title" text="PRO TIMER">
+                     <HBox.margin>
+                        <Insets left="3.0" />
+                     </HBox.margin></Label>
+               </children>
+            </HBox>
+            <Label id="projectTitle_lbl" fx:id="projectTitle_lbl" layoutX="105.0" prefHeight="25.0" prefWidth="356.0" />
          </children>
       </AnchorPane>
       <AnchorPane id="contentpane" fx:id="rootPane" layoutY="25.0" maxHeight="175.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="600.0">
@@ -63,7 +83,7 @@
                   <String fx:value="projectBtn" />
                </styleClass>
             </Button>
-            <AnchorPane id="runningTimerPane" layoutY="45.0" prefHeight="103.0" prefWidth="600.0">
+            <AnchorPane id="runningTimerPane" fx:id="runningTimerPane" layoutY="45.0" prefHeight="103.0" prefWidth="600.0">
                <children>
                   <Label id="timer_lbl" fx:id="localTimer_lbl" alignment="CENTER" contentDisplay="CENTER" layoutX="183.0" layoutY="16.0" prefHeight="44.0" prefWidth="181.0" text="00:00:00" />
                   <Label id="currentDate_lbl" fx:id="currentDate_lbl" alignment="CENTER" layoutX="229.0" layoutY="2.0" prefHeight="12.0" prefWidth="97.0" styleClass="timerStatus_lbl" text="MON DD, YYYY" />
@@ -74,7 +94,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutY="113.0" prefHeight="57.0" prefWidth="600.0">
+            <AnchorPane fx:id="timerPane" layoutY="113.0" prefHeight="57.0" prefWidth="600.0">
                <children>
                   <Button id="resetproject_btn" fx:id="resetProject_btn" layoutX="64.0" layoutY="7.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="RESET PROJECT" textAlignment="CENTER" wrapText="true">
                      <styleClass>

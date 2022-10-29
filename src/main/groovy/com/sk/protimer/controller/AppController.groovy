@@ -86,6 +86,8 @@ class AppController {
 
         }
     }
+    //Add some space while displaying project relative path and also ">" will be converted as Arrow-mark unicode by SF-PRO font
+    final String spacing = ">  "
     /**
      * creating app-controller instance
      */
@@ -140,7 +142,7 @@ class AppController {
      * Load Project from the source and validate the project whether pro-timer initiated or not.
      * @param filePath - Absolute path of the file that needs to validate
      */
-    void loadProject(final String filePath) {
+    def  loadProject(final String filePath) {
         //Before loading another project first check whether timer running or not...
         File folder = new File(filePath)
         if (folder.exists() && folder.directory){
@@ -151,21 +153,27 @@ class AppController {
                 if (projectConfig!=null && projectConfig.size() > 0){
                     projectPath = folder
                     String tmp = folder.getAbsolutePath()
-                    Entry.fxmlController.projectLocation_lbl.setText(tmp.substring(tmp.lastIndexOf(File.separator)+1))
+                    Entry.fxmlController.projectTitle_lbl.setText(spacing + tmp.substring(tmp.lastIndexOf(File.separator)+1))
+                    Entry.fxmlController.projectLocation_lbl.setText(tmp)
                     changeRecentListOrder(folder)
                     createController()
                     resetElapsedTimer()
                     resetRunningTimer()
                     // println "Project path was located.. path: ${projectPath.getAbsolutePath()}"
+                    //Change application state
+                    Entry.fxmlController.setDisableState(false, 1.0)
+                    return
                 }
                 else{
-                    //println "configuration file $templateName wasn't available. But if u confirmed the alert then pro-timer will create the config file"
+                    //No need to take care of the disable state. New ProjectConfig take care of that.
                     Entry.fxmlController.createConfigAlert(folder, -1, Entry.primaryStage.getScene().getWindow())
+                    return
                 }
 
             }else{
                 // println "Pro-timer wasn't initiated for this project"
                 Entry.fxmlController.createWarning(1, Entry.primaryStage.getScene().getWindow())
+                return
             }
 
         }else{
@@ -173,7 +181,10 @@ class AppController {
             Entry.fxmlController.createWarning(-1, Entry.primaryStage.getScene().getWindow())
             removeFromRecentList(folder)
         }
+
+        Entry.fxmlController.setDisableState(true, 0.5)
     }
+
 
     /**
      *
@@ -268,13 +279,16 @@ class AppController {
      */
     void creatingNewProjectConfig(File folder) {
         String tmp = folder.getAbsolutePath()
-        Entry.fxmlController.projectLocation_lbl.setText(tmp.substring(tmp.lastIndexOf(File.separator)+1))
+//        Entry.fxmlController.projectLocation_lbl.setText(tmp.substring(tmp.lastIndexOf(File.separator)+1))
         projectPath = folder
         Files.createDirectories(Paths.get(projectPath.getAbsolutePath()+File.separator+folderPattern))
         changeRecentListOrder(folder)
         createController()
         resetElapsedTimer()
         resetRunningTimer()
+        Entry.fxmlController.setDisableState(false,1.0)
+        Entry.fxmlController.projectTitle_lbl.setText(spacing + tmp.substring(tmp.lastIndexOf(File.separator)+1))
+        Entry.fxmlController.projectLocation_lbl.setText(tmp)
     }
     /**
      * Reset overall elapsed timer in the UI..
@@ -297,7 +311,7 @@ class AppController {
     void closeApplication() {
 
         if (loggerStarted.get()){
-            //logger was called internally to stop the timer, Then only time sheets will get update and we can smoothly close the app without any loss of date..
+            //logger was called internally to stop the timer, Then only time sheets will get update and we can smoothly close the app without any loss of data..
             onLogging()
         }
         //pushing history buffer into registry
