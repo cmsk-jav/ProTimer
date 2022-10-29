@@ -714,7 +714,7 @@ class FXMLController implements Initializable {
         start_low.getKeyFrames().add(keyFrame1)
         start_high.getKeyFrames().add(keyFrame2)
 
-        start_low.setOnFinished(event->projectLocation_lbl.setText("Copied to Clipboard ✅"))
+        start_low.setOnFinished(event->projectLocation_lbl.setText("Copied to Clipboard !!"))
         //====================
            /* Timeline end_low = new Timeline()
             Timeline end_high = new Timeline()
