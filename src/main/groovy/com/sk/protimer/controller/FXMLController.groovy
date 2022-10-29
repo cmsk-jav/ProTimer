@@ -765,12 +765,15 @@ class FXMLController implements Initializable {
             //It's possible to get exception if default mail app wasn't available.
             try {
                 Desktop desktop = Desktop.getDesktop()
-                String mailURI = "mailto:${emailAddress}"
-                URI uri = URI.create(mailURI);
-                desktop.mail(uri);
+                desktop.mail(URI.create("mailto:${emailAddress}"))
+                //If inbuilt mail box wasn't available then UI thread went to DEADLOCK state. So, Will wait for 1SEC
+                //And if no mailbox was triggered then we can suspend the task.
+                //Issue came on  issue on KALI-LINUX - VM Image Machine
+                Platform.runLater(x-> { Thread.sleep(1000);desktop.enableSuddenTermination()})
             }catch(Exception ex){
-
+                ex.printStackTrace()
             }
+            e.consume()
         })
         def version_lbl = aboutPane.lookup("#appVersion") as Label
         version_lbl.setText(Entry.appController.APP_VERSION)
