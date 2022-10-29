@@ -44,7 +44,11 @@ class Entry extends Application{
     AnchorPane titleBar;
     static Entry entryInstance
     def browse(final String url) {
-        getHostServices().showDocument(url)
+       try {
+           getHostServices().showDocument(url)
+       }catch(Exception ex){
+
+       }
     }
 
     @Override

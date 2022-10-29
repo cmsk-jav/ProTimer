@@ -314,7 +314,11 @@ class FXMLController implements Initializable {
         exit.addActionListener(e-> {
 //            Entry.appController.closeApplication()
             Platform.runLater(()->{
-                if (!Entry.primaryStage.isShowing()) Entry.primaryStage.show()
+                if (stage!=null) return
+                if (!Entry.primaryStage.isShowing()) {
+                    Entry.primaryStage.toFront()
+                    Entry.primaryStage.show()
+                }
                 createAlertWindow(Entry.primaryStage.getScene().getWindow())
             })
 
@@ -388,6 +392,8 @@ class FXMLController implements Initializable {
 
     void cancelCloseWindow(ActionEvent actionEvent) {
         if (stage!=null) stage.close()
+        //set it to uninitialised to avoid stage collision. At a time only one warning stage should be shown.
+        stage = null
     }
 
     /**
@@ -756,10 +762,15 @@ class FXMLController implements Initializable {
         twitter.setOnAction(e->Entry.entryInstance.browse(twitterURL))
         website.setOnAction(e->Entry.entryInstance.browse(websiteURL))
         email.setOnAction(e->{
-            Desktop desktop = Desktop.getDesktop()
-            String message = "mailto:${emailAddress}"
-            URI uri = URI.create(message);
-            desktop.mail(uri);
+            //It's possible to get exception if default mail app wasn't available.
+            try {
+                Desktop desktop = Desktop.getDesktop()
+                String mailURI = "mailto:${emailAddress}"
+                URI uri = URI.create(mailURI);
+                desktop.mail(uri);
+            }catch(Exception ex){
+
+            }
         })
         aboutStage =  new Stage()
         Entry.appController.enableApplicationDrag(aboutPane,aboutStage)
