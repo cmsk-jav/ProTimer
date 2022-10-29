@@ -772,6 +772,8 @@ class FXMLController implements Initializable {
 
             }
         })
+        def version_lbl = aboutPane.lookup("#appVersion") as Label
+        version_lbl.setText(Entry.appController.APP_VERSION)
         aboutStage =  new Stage()
         Entry.appController.enableApplicationDrag(aboutPane,aboutStage)
         //Closing a stage is equivalent to hide, So we can use it later iff we have the instance

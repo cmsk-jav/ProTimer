@@ -88,6 +88,8 @@ class AppController {
     }
     //Add some space while displaying project relative path and also ">" will be converted as Arrow-mark unicode by SF-PRO font
     final String spacing = ">  "
+    //APP version
+    final String APP_VERSION = "V 1.1"
     /**
      * creating app-controller instance
      */

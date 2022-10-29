@@ -34,7 +34,7 @@
       <AnchorPane layoutY="30.0" prefHeight="240.0" prefWidth="650.0" styleClass="about_contentPane">
          <children>
             <Label alignment="CENTER" layoutY="1.0" prefHeight="32.0" prefWidth="650.0" styleClass="about_project_lbl" text="PRO TIMER" />
-            <Label alignment="CENTER" layoutY="30.0" prefHeight="19.0" prefWidth="650.0" styleClass="version_lbl" text="V1.0.0.0-RC" />
+            <Label id="appVersion" alignment="CENTER" layoutY="30.0" prefHeight="19.0" prefWidth="650.0" styleClass="version_lbl" text="V1.0.0.0-RC" />
             <ImageView fitHeight="93.0" fitWidth="91.0" layoutX="276.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" styleClass="about_logo">
                <image>
                   <Image url="@../icons/runtime_128X128.png" />
