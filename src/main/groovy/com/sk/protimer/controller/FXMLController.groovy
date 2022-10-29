@@ -761,20 +761,18 @@ class FXMLController implements Initializable {
         github.setOnAction(e->Entry.entryInstance.browse(githubURL))
         twitter.setOnAction(e->Entry.entryInstance.browse(twitterURL))
         website.setOnAction(e->Entry.entryInstance.browse(websiteURL))
-        email.setOnAction(e->{
-            //It's possible to get exception if default mail app wasn't available.
-            try {
-                Desktop desktop = Desktop.getDesktop()
-                desktop.mail(URI.create("mailto:${emailAddress}"))
-                //If inbuilt mail box wasn't available then UI thread went to DEADLOCK state. So, Will wait for 1SEC
-                //And if no mailbox was triggered then we can suspend the task.
-                //Issue came on  issue on KALI-LINUX - VM Image Machine
-                Platform.runLater(x-> { Thread.sleep(1000);desktop.enableSuddenTermination()})
-            }catch(Exception ex){
-                ex.printStackTrace()
-            }
-            e.consume()
-        })
+        //Mailto protocol isn't working directly for linux, Will go through browser
+        if (System.getProperty("os.name").toLowerCase() == "linux")
+            email.setOnAction(e->Entry.entryInstance.browse("mailto:${emailAddress}"))
+        else
+            email.setOnAction(e->{
+                //It's possible to get exception if default mail app wasn't available.
+                try {
+                    Desktop.getDesktop().mail(URI.create("mailto:${emailAddress}"))
+                }catch(Exception ex){
+                }
+                e.consume()
+            })
         def version_lbl = aboutPane.lookup("#appVersion") as Label
         version_lbl.setText(Entry.appController.APP_VERSION)
         aboutStage =  new Stage()
