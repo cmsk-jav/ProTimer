@@ -26,7 +26,9 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Period
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Supplier
 import java.util.prefs.Preferences
@@ -89,6 +91,19 @@ class AppController {
 
         }
     }
+    //Executing required task after every 1sec of delay
+    Timer dateRefresh
+    Supplier<Timer> dateRefreshSupplier = ()-> new Timer("Date-Refresh")
+    Supplier<TimerTask> dateRefreshTaskSupplier = ()->new TimerTask() {
+        void run() {
+            println("Running")
+            //Update Date in the UI
+            Platform.runLater(()->Entry.fxmlController.updateDate())
+            //Once update complete, We need to schedule for next refresh
+            if (dateRefresh!=null) dateRefresh.cancel()
+            scheduleRefresh()
+        }
+    }
     //Add some space while displaying project relative path and also ">" will be converted as Arrow-mark unicode by SF-PRO font
     final String spacing = ">  "
     //APP version
@@ -98,6 +113,25 @@ class AppController {
      */
     AppController(){
         fetchRegistry()
+    }
+    def scheduleRefresh(){
+        dateRefresh = dateRefreshSupplier.get()
+        //DateCalc
+        LocalDateTime current = LocalDateTime.now()
+        LocalDateTime nextDay = current.plusDays(1)
+                                .minusHours(current.getHour())
+                                .minusMinutes(current.getMinute())
+                                .minusSeconds(current.getSecond())
+                                .minusNanos(current.getSecond())
+        //End time is exclusive and we didn't take care of nano-seconds. So we can add one seconds to get currect result/
+        //of-course this gives < 1 sec delay. But that's not a big deal
+        long delay = Duration.between(current,nextDay.plusSeconds(1)).getSeconds()
+        println("CurrentDate: $current")
+        println("next Date: $nextDay")
+        println("Delay: $delay S")
+        //----
+//        dateRefresh.scheduleAtFixedRate(dateRefreshTaskSupplier.get(),delay,2000L)
+        dateRefresh.schedule(dateRefreshTaskSupplier.get(),delay*1000)
     }
     /**
      *
@@ -325,6 +359,7 @@ class AppController {
         //pushing history buffer into registry
         commitRegistry()
         if (timer!=null) timer.cancel()
+        if (dateRefresh!=null) dateRefresh.cancel()
         Platform.exit()
     }
     /**

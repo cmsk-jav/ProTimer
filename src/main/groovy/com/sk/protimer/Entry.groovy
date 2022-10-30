@@ -94,6 +94,7 @@ class Entry extends Application{
         primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         appController.enableApplicationDrag(titleBar,primaryStage)
+        appController.scheduleRefresh()
         fxmlController.checkTraySupport()
         Rectangle rect = new Rectangle(WIDTH,HEIGHT);
         rect.setArcHeight(30.0)

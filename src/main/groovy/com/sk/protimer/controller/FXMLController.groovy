@@ -148,13 +148,16 @@ class FXMLController implements Initializable {
      * the root object was not localized.
      */
     void initialize(URL location, ResourceBundle resources) {
-        if (currentDate_lbl!=null)
-         currentDate_lbl.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("MMM dd, YYYY")))
+        if (currentDate_lbl!=null) updateDate()
+
 
         /*Tooltip tooltip = new Tooltip("Close")
         tooltip.setStyle("-fx-background-color:#FFFFE1; -fx-text-fill:black")
         Tooltip.install(quit_btn, tooltip)*/
         setDisableState(true, 0.5)
+    }
+    def updateDate(){
+        currentDate_lbl.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("MMM dd, YYYY")))
     }
     /**
      *
