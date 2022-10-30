@@ -26,7 +26,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-class YamlController {
+class YamlController implements Controller{
     File yamlFile
     YamlSlurper parser = new YamlSlurper()
     DumperOptions options
@@ -42,8 +42,9 @@ class YamlController {
     String projectPath, templateName
     // DayWiseCounter for calculatingOverallTime
     private long dayWiseCount
-
-    private YamlController(){
+    private YamlController(String projectPath, String templateName){
+        this.projectPath = projectPath
+        this.templateName = templateName
         options = new DumperOptions()
         options.setPrettyFlow(true)
         options.setIndent(3)
@@ -54,32 +55,19 @@ class YamlController {
      *  Make Yaml Controller by Creating yaml file if it doesn't exists
      * @return YamlController Instance
      */
-    def setYamlFile(final String projectPath,  final String templateName){
-        this.projectPath = projectPath
-        this.templateName = templateName
+    def setupFile(){
         yamlFile = new File(projectPath+templateName)
-        if (!yamlFile.exists()){
-            yamlFile.createNewFile()
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(yamlFile))
-            addHeader(bufferedWriter)
-            bufferedWriter.flush()
-        }
-        return this
+        return setupFile(yamlFile) as YamlController
     }
-    def addHeader(BufferedWriter bufferedWriter){
-        bufferedWriter.writeLine("# PRO-TIMER ")
-        bufferedWriter.writeLine("# PROJECT LOCATION: ${Entry.appController.projectPath.getAbsolutePath()}")
-        bufferedWriter.newLine()
-    }
+
     /**
      * This class uses Builder-Pattern to create an instance
      * @return
      */
-    static YamlController build(String projectPath,  String templateName){
-        println("Project path:$projectPath")
-        println("Template Name:$templateName")
-        return  new YamlController()
-                .setYamlFile(projectPath, templateName)
+    static def build(String projectPath,  String templateName){
+//        println("Project path:$projectPath")
+//        println("Template Name:$templateName")
+        return new YamlController(projectPath, templateName).setupFile()
     }
     /**
      * Stopping logger

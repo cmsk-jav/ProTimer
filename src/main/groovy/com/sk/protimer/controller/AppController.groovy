@@ -36,7 +36,8 @@ import java.util.stream.IntStream
 class AppController {
     //Config folder and file Name which will get created to store time entries for each project
     final def folderPattern = ".pro-timer"
-    final def templateName = "ProjectStats.yml"
+    final def yamlTemplateName = "ProjectStats.yml"
+    final def fileTemplateName = "ProEntries.txt"
     //Name of the registry Node. Used to store recent history
     final def registryNode = "pro-timer/entry"
     Preferences rootPreferenceNode
@@ -44,6 +45,8 @@ class AppController {
     File projectPath
     //Controller to read from and write into Yaml files
     YamlController yamlController
+    //Controller to read from and write into Plain files
+    FileController fileController
     //Status to check if logger running or not...
     AtomicBoolean loggerStarted = new AtomicBoolean()
     //Checking System Tray support...
@@ -63,7 +66,7 @@ class AppController {
     }
 
     FilenameFilter projectFileFilter = (File dir, String filename)->{
-        return filename == templateName
+        return filename == yamlTemplateName
     }
     //Executing required task after every 1sec of delay
     Timer timer
@@ -227,7 +230,8 @@ class AppController {
      * Support method for creating yamlController after the project was selected by the user.
      */
     void createController() {
-        yamlController = YamlController.build(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator,templateName)
+        yamlController = YamlController.build(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator,yamlTemplateName)
+        fileController = FileController.build(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator,fileTemplateName)
         //overAllTimeElapsedRetrieval()
     }
 
@@ -261,6 +265,7 @@ class AppController {
             timer = timerSupplier.get()
             timer.scheduleAtFixedRate(timerTaskSupplier.get(),0L,1000L)
             yamlController.addStartTimer(now)
+            fileController.addStartTimer(now)
         }else{
             loggerStarted.set(false)
             if (timer!=null) timer.cancel()
@@ -268,6 +273,7 @@ class AppController {
 //            LocalDateTime now = LocalDateTime.now()
             LocalDateTime now = yamlController.logStartTime.plusSeconds(seconds-lastElapsedSeconds)
             yamlController.addStopTimer(now)
+            fileController.addStopTimer(now)
             lastElapsedSeconds = seconds
             /*yamlController = new YamlController(
                     projectPath.getAbsolutePath()+File.separator+folderPattern,templateName,now)*/
@@ -328,13 +334,15 @@ class AppController {
      */
     void resetProject() {
         if (projectPath==null || loggerStarted.get()) return
-        File file = new File(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator+templateName)
+        //File file = new File(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator+templateName)
         if (projectPath.exists())
             Entry.fxmlController.createResetAlert(1,Entry.rootPane.getScene().getWindow())
     }
     void resetProjectData(){
-        File file = new File(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator+templateName)
-        FileChannel.open(Paths.get(file.getAbsolutePath()), StandardOpenOption.WRITE).truncate(0).close()
+        File ymlFile = new File(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator+yamlTemplateName)
+        File plainFile = new File(projectPath.getAbsolutePath()+File.separator+folderPattern+File.separator+fileTemplateName)
+        FileChannel.open(Paths.get(ymlFile.getAbsolutePath()), StandardOpenOption.WRITE).truncate(0).close()
+        FileChannel.open(Paths.get(plainFile.getAbsolutePath()), StandardOpenOption.WRITE).truncate(0).close()
     }
 
     def getPage(final String page) throws IOException {
