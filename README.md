@@ -55,8 +55,9 @@ ___
 
 # Credits
 
-[//]: # ([![Install4J][install4j-cdn]]&#40;https://www.ej-technologies.com?target=_blank&#41;)
-<a href="https://www.buymeacoffee.com/cmsuresh/protimer" target="_blank"><img src="https://www.ej-technologies.com/images/product_banners/install4j_medium.png" alt="Install4J" ></a>
+[![Install4J][install4j-cdn]][install4j-home]
+
+[//]: # (<a href="https://www.buymeacoffee.com/cmsuresh/protimer" target="_blank"><img src="https://www.ej-technologies.com/images/product_banners/install4j_medium.png" alt="Install4J" ></a>)
 
 > https://www.ej-technologies.com/products/install4j/overview.html
 >>I would like to thank **Install4J** for giving me an **Open-Source license**
