@@ -69,7 +69,7 @@ for their build tool which I can easily create an installer for multiple platfor
 > 
 > <a href="https://www.buymeacoffee.com/cmsuresh/protimer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-[//]: # (> ![ALT][buy-me-coffee-cdn] )
+## And kudos to all the Open-Source developers :-)
 
 
 [release-badge]: https://img.shields.io/github/v/release/cmsk-jav/ProTimer
