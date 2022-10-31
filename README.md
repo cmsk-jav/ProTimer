@@ -62,13 +62,16 @@ ___
 > https://www.ej-technologies.com/products/install4j/overview.html
 >>I would like to thank **Install4J** for giving me an **Open-Source license**
 for their build tool which I can easily create an installer for multiple platforms.
+
+> <a href="https://www.flaticon.com/free-icons/time" title="time icons">Time icons created by Freepik - Flaticon</a>
+
 ---
 > **If you like our project, please consider buying us a coffee.**
 > 
 > **Thank you for your support!**
 > 
 > <a href="https://www.buymeacoffee.com/cmsuresh/protimer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-
+> 
 ## And kudos to all the Open-Source developers :-)
 
 
