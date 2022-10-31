@@ -51,7 +51,25 @@ ___
  - You can also directly open the **Project-Stats.yml** file where you can find the timesheet.
 
 # Developer Notes
-- Needs Java-11 or higher and Groovy 4.0+ requires to run this application
+- Needs Java-11+, JavaFX15+ and Groovy 4.0+ requires to run this application
+
+# Credits
+
+[//]: # ([![Install4J][install4j-cdn]]&#40;https://www.ej-technologies.com?target=_blank&#41;)
+<a href="https://www.buymeacoffee.com/cmsuresh/protimer" target="_blank"><img src="https://www.ej-technologies.com/images/product_banners/install4j_medium.png" alt="Install4J" ></a>
+
+> https://www.ej-technologies.com/products/install4j/overview.html
+>>I would like to thank **Install4J** for giving me an **Open-Source license**
+for their build tool which I can easily create an installer for multiple platforms.
+---
+> **If you like our project, please consider buying us a coffee.**
+> 
+> **Thank you for your support!**
+> 
+> <a href="https://www.buymeacoffee.com/cmsuresh/protimer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+[//]: # (> ![ALT][buy-me-coffee-cdn] )
+
 
 [release-badge]: https://img.shields.io/github/v/release/cmsk-jav/ProTimer
 [release]: https://github.com/cmsk-jav/ProTimer/releases/latest
@@ -67,4 +85,8 @@ ___
 [twitter-badge]: https://img.shields.io/twitter/url?label=Follow%20%40cmskj&style=social&url=https%3A%2F%2Ftwitter.com%2Fcmskj
 [twitter-url]: https://twitter.com/cmskj
 [coffee-cdn]: https://img.shields.io/badge/Buy--Me--A--Coffee-%E2%98%BA%EF%B8%8F-orange
-[coffee-url]: https://www.buymeacoffee.com/cmsuresh
+[coffee-url]: https://www.buymeacoffee.com/cmsuresh/protimer
+[install4j-cdn]: https://www.ej-technologies.com/images/product_banners/install4j_medium.png
+[install4j-home]: https://www.ej-technologies.com
+[buy-me-coffee-cdn]: https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png
+
