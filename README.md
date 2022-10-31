@@ -16,6 +16,9 @@ So that you can find the amount of time spent on the project
 
 ![ProTimer][pro-timer-img]
 
+| ![ProTimer][pro-timer-img-win] | ![ProTimer][pro-timer-img-lin] | ![ProTimer][pro-timer-img-mac] |
+|--------------------------------|--------------------------------|--------------------------------|
+
 ## Functions 
 ___
 ###  LOGGER
@@ -93,4 +96,7 @@ for their build tool which I can easily create an installer for multiple platfor
 [install4j-cdn]: https://www.ej-technologies.com/images/product_banners/install4j_medium.png
 [install4j-home]: https://www.ej-technologies.com
 [buy-me-coffee-cdn]: https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png
+[pro-timer-img-win]: src/main/resources/res/image/Protimer_windows.png
+[pro-timer-img-lin]: src/main/resources/res/image/Protimer_linux.png
+[pro-timer-img-mac]: src/main/resources/res/image/Protimer_mac.png
 
