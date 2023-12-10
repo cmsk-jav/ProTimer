@@ -152,24 +152,18 @@ class AppListener {
                     Entry.primaryStage.setAlwaysOnTop(true)
                     Entry.primaryStage.setAlwaysOnTop(false)
                     Entry.primaryStage.requestFocus()
-                    println("Is Showing?"+Entry.primaryStage.isShowing())
-                    println("Is iconified?"+Entry.primaryStage.iconified)
                     if (Entry.primaryStage.iconified){
-                        println("Deiconified....")
+                        //For Iconified - Minimize
                         Entry.primaryStage.setIconified(false);
-                        return;
+                        return
                     }
-                    //For Minimized to Tray
                     if (!Entry.primaryStage.isShowing()){
+                        //For Minimized to Tray
                         Entry.primaryStage.toFront()
                         Entry.primaryStage.show();
                     }
-//                        Entry.primaryStage.toFront()
-//                        Entry.primaryStage.show()
-
                 });
-                // Fire Shortcut.
-                System.out.println("Triggered ALT + X");
+                println("Triggered ALT + X");
             }
         }
     }
