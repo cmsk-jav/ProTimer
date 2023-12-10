@@ -20,6 +20,7 @@ import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
 import javafx.stage.Stage
+import org.jnativehook.GlobalScreen
 
 import java.nio.channels.FileChannel
 import java.nio.file.Files
@@ -358,9 +359,17 @@ class AppController {
         }
         //pushing history buffer into registry
         commitRegistry()
+        unregisterGlobalKeyListener()
         if (timer!=null) timer.cancel()
         if (dateRefresh!=null) dateRefresh.cancel()
         Platform.exit()
+    }
+    /**
+     *
+     * Unregistering Global Key Listener
+     */
+    def unregisterGlobalKeyListener(){
+        GlobalScreen.unregisterNativeHook()
     }
     /**
      * @WARNING

@@ -30,6 +30,10 @@ import javafx.scene.shape.Rectangle
 import javafx.scene.text.Font
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import org.jnativehook.GlobalScreen
+
+import java.util.logging.Level
+import java.util.logging.Logger
 
 class Entry extends Application{
     public static AnchorPane rootPane
@@ -69,6 +73,16 @@ class Entry extends Application{
         listener = new AppListener(fxmlController,appController)
         scene = new Scene(rootPane,WIDTH,HEIGHT)
         titleBar = searchNode("#titlepane") as AnchorPane
+        //Add listener for global key mapping
+        addGlobalListeners()
+    }
+    static void addGlobalListeners(){
+        GlobalScreen.registerNativeHook();
+        GlobalScreen.addNativeKeyListener(new AppListener.GlobalKeyListener())
+        //Disable JNative Hook Logger
+        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage()
+                .getName());
+        logger.setLevel(Level.OFF)
     }
     Node searchNode(final String id){
         return scene.lookup(id)

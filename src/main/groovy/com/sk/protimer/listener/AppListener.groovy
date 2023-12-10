@@ -25,6 +25,7 @@ import javafx.animation.ScaleTransition
 import javafx.animation.SequentialTransition
 import javafx.animation.Timeline
 import javafx.animation.TranslateTransition
+import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Button
@@ -35,6 +36,10 @@ import javafx.scene.input.ClipboardContent
 import javafx.scene.input.MouseButton
 import javafx.scene.layout.AnchorPane
 import javafx.util.Duration
+import org.jnativehook.GlobalScreen
+import org.jnativehook.NativeHookException
+import org.jnativehook.keyboard.NativeKeyEvent
+import org.jnativehook.keyboard.NativeKeyListener
 
 class AppListener {
 
@@ -103,5 +108,69 @@ class AppListener {
         fxmlController.changeProject_btn.setOnAction(e-> fxmlController.showRecentProject(e) )
         fxmlController.newProject_btn.setOnAction(e-> fxmlController.loadNewProject() )
 
+    }
+    /*
+      Set Global Key Listener
+     */
+    static class GlobalKeyListener implements NativeKeyListener{
+        private short hotKeyFlag = 0x00;
+        private static final short MASK_ALT = 1 << 0;
+        private static final short MASK_X = 1 << 1;
+
+        @Override
+        void nativeKeyTyped(NativeKeyEvent nativeKeyEvent) {
+        }
+
+        @Override
+        void nativeKeyPressed(NativeKeyEvent e) {
+            if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
+                try {
+                    GlobalScreen.unregisterNativeHook();
+                } catch (NativeHookException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
+                hotKeyFlag &= MASK_ALT;
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_X) {
+                hotKeyFlag &= MASK_X;
+            }
+        }
+
+        @Override
+        void nativeKeyReleased(NativeKeyEvent e) {
+            if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
+                hotKeyFlag ^= MASK_ALT;
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_X) {
+                hotKeyFlag ^= MASK_X;
+            }
+            // Check the mask and do work.
+            if (hotKeyFlag == (short)(MASK_ALT ^ MASK_X)) {
+                Platform.runLater(()->{
+                    Entry.primaryStage.setAlwaysOnTop(true)
+                    Entry.primaryStage.setAlwaysOnTop(false)
+                    Entry.primaryStage.requestFocus()
+                    println("Is Showing?"+Entry.primaryStage.isShowing())
+                    println("Is iconified?"+Entry.primaryStage.iconified)
+                    if (Entry.primaryStage.iconified){
+                        println("Deiconified....")
+                        Entry.primaryStage.setIconified(false);
+                        return;
+                    }
+                    //For Minimized to Tray
+                    if (!Entry.primaryStage.isShowing()){
+                        Entry.primaryStage.toFront()
+                        Entry.primaryStage.show();
+                    }
+//                        Entry.primaryStage.toFront()
+//                        Entry.primaryStage.show()
+
+                });
+                // Fire Shortcut.
+                System.out.println("Triggered ALT + X");
+            }
+        }
     }
 }

@@ -106,6 +106,10 @@ dependencies {
     implementation 'org.apache.groovy:groovy-json:4.0.4'
     //JavaFX
     implementation 'org.openjfx:javafx:15.0.1'
+    // https://mvnrepository.com/artifact/com.1stleg/jnativehook
+    implementation 'com.1stleg:jnativehook:2.1.0'
+
+
 }
 
 tasks.jar.dependsOn("copyDependencies")
