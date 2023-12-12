@@ -19,6 +19,8 @@ import com.sk.protimer.Entry
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
+import javafx.scene.media.Media
+import javafx.scene.media.MediaPlayer
 import javafx.stage.Stage
 import org.jnativehook.GlobalScreen
 
@@ -109,6 +111,10 @@ class AppController {
     final String spacing = ">  "
     //APP version
     final String APP_VERSION = "V 1.1"
+    //For shortcut triggered notifier
+    Media notificationMediaPause = new Media(getClass().getResource(Entry.resourcePath+"/media/pause.wav").toURI().toString());
+    Media notificationMediaResume = new Media(getClass().getResource(Entry.resourcePath+"/media/resume.wav").toURI().toString());
+    Media notificationMediaNoProject = new Media(getClass().getResource(Entry.resourcePath+"/media/empty.wav").toURI().toString());
     /**
      * creating app-controller instance
      */
@@ -398,4 +404,24 @@ class AppController {
         return url;
     }
 
+    void pauseOrResumeTask() {
+        if (projectPath==null){
+            //Project hasn't selected
+            println("ProjectPath not selected")
+            notifyViaMedia(notificationMediaNoProject)
+            return
+        }
+        if (loggerStarted.get()){
+            onLogging()
+            notifyViaMedia(notificationMediaPause)
+            println("ProTimer got Paused")
+        }else {
+            onLogging()
+            notifyViaMedia(notificationMediaResume)
+            println("ProTimer got Resumed")
+        }
+    }
+    void notifyViaMedia(Media media){
+        new MediaPlayer(media).play()
+    }
 }

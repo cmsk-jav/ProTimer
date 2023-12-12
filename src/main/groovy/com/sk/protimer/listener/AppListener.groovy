@@ -114,8 +114,9 @@ class AppListener {
      */
     static class GlobalKeyListener implements NativeKeyListener{
         private short hotKeyFlag = 0x00;
-        private static final short MASK_ALT = 1 << 0;
-        private static final short MASK_X = 1 << 1;
+        private static final short MASK_CTRL = 1 << 0;
+        private static final short MASK_ALT = 1 << 1;
+        private static final short MASK_TILDE = 1 << 2;
 
         @Override
         void nativeKeyTyped(NativeKeyEvent nativeKeyEvent) {
@@ -123,18 +124,26 @@ class AppListener {
 
         @Override
         void nativeKeyPressed(NativeKeyEvent e) {
-            if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
+            /*if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
                 try {
                     GlobalScreen.unregisterNativeHook();
                 } catch (NativeHookException ex) {
                     throw new RuntimeException(ex);
                 }
+            }*/
+            if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
+//                hotKeyFlag &= MASK_ALT;
+                hotKeyFlag &= 0
             }
-            else if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
-                hotKeyFlag &= MASK_ALT;
+            else if (e.getKeyCode() == NativeKeyEvent.VC_BACKQUOTE) {
+//                hotKeyFlag &= MASK_TILDE;
+                hotKeyFlag &= 0
             }
-            else if (e.getKeyCode() == NativeKeyEvent.VC_X) {
-                hotKeyFlag &= MASK_X;
+            else if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+//                hotKeyFlag &= MASK_CTRL;
+                hotKeyFlag &= 0
+            }else{
+                hotKeyFlag &= 0
             }
         }
 
@@ -143,11 +152,23 @@ class AppListener {
             if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
                 hotKeyFlag ^= MASK_ALT;
             }
-            else if (e.getKeyCode() == NativeKeyEvent.VC_X) {
-                hotKeyFlag ^= MASK_X;
+            else if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+                hotKeyFlag ^= MASK_CTRL;
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_BACKQUOTE) {
+                hotKeyFlag ^= MASK_TILDE;
             }
             // Check the mask and do work.
-            if (hotKeyFlag == (short)(MASK_ALT ^ MASK_X)) {
+            if (hotKeyFlag == (short)(MASK_ALT ^ MASK_TILDE ^ MASK_CTRL)) {
+
+                // Pause/Resume logging
+                Platform.runLater {
+                    Entry.appController.pauseOrResumeTask()
+                }
+
+
+                /*
+                // Window Sent to Top while pressing the shortcut
                 Platform.runLater(()->{
                     Entry.primaryStage.setAlwaysOnTop(true)
                     Entry.primaryStage.setAlwaysOnTop(false)
@@ -163,7 +184,7 @@ class AppListener {
                         Entry.primaryStage.show();
                     }
                 });
-                println("Triggered ALT + X");
+                */
             }
         }
     }
