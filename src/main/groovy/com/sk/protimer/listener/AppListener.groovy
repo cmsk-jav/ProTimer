@@ -25,6 +25,7 @@ import javafx.animation.ScaleTransition
 import javafx.animation.SequentialTransition
 import javafx.animation.Timeline
 import javafx.animation.TranslateTransition
+import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Button
@@ -35,6 +36,10 @@ import javafx.scene.input.ClipboardContent
 import javafx.scene.input.MouseButton
 import javafx.scene.layout.AnchorPane
 import javafx.util.Duration
+import org.jnativehook.GlobalScreen
+import org.jnativehook.NativeHookException
+import org.jnativehook.keyboard.NativeKeyEvent
+import org.jnativehook.keyboard.NativeKeyListener
 
 class AppListener {
 
@@ -103,5 +108,84 @@ class AppListener {
         fxmlController.changeProject_btn.setOnAction(e-> fxmlController.showRecentProject(e) )
         fxmlController.newProject_btn.setOnAction(e-> fxmlController.loadNewProject() )
 
+    }
+    /*
+      Set Global Key Listener
+     */
+    static class GlobalKeyListener implements NativeKeyListener{
+        private short hotKeyFlag = 0x00;
+        private static final short MASK_CTRL = 1 << 0;
+        private static final short MASK_ALT = 1 << 1;
+        private static final short MASK_TILDE = 1 << 2;
+
+        @Override
+        void nativeKeyTyped(NativeKeyEvent nativeKeyEvent) {
+        }
+
+        @Override
+        void nativeKeyPressed(NativeKeyEvent e) {
+            /*if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
+                try {
+                    GlobalScreen.unregisterNativeHook();
+                } catch (NativeHookException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }*/
+            if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
+//                hotKeyFlag &= MASK_ALT;
+                hotKeyFlag &= 0
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_BACKQUOTE) {
+//                hotKeyFlag &= MASK_TILDE;
+                hotKeyFlag &= 0
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+//                hotKeyFlag &= MASK_CTRL;
+                hotKeyFlag &= 0
+            }else{
+                hotKeyFlag &= 0
+            }
+        }
+
+        @Override
+        void nativeKeyReleased(NativeKeyEvent e) {
+            if (e.getKeyCode() == NativeKeyEvent.VC_ALT) {
+                hotKeyFlag ^= MASK_ALT;
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+                hotKeyFlag ^= MASK_CTRL;
+            }
+            else if (e.getKeyCode() == NativeKeyEvent.VC_BACKQUOTE) {
+                hotKeyFlag ^= MASK_TILDE;
+            }
+            // Check the mask and do work.
+            if (hotKeyFlag == (short)(MASK_ALT ^ MASK_TILDE ^ MASK_CTRL)) {
+
+                // Pause/Resume logging
+                Platform.runLater {
+                    Entry.appController.pauseOrResumeTask()
+                }
+
+
+                /*
+                // Window Sent to Top while pressing the shortcut
+                Platform.runLater(()->{
+                    Entry.primaryStage.setAlwaysOnTop(true)
+                    Entry.primaryStage.setAlwaysOnTop(false)
+                    Entry.primaryStage.requestFocus()
+                    if (Entry.primaryStage.iconified){
+                        //For Iconified - Minimize
+                        Entry.primaryStage.setIconified(false);
+                        return
+                    }
+                    if (!Entry.primaryStage.isShowing()){
+                        //For Minimized to Tray
+                        Entry.primaryStage.toFront()
+                        Entry.primaryStage.show();
+                    }
+                });
+                */
+            }
+        }
     }
 }

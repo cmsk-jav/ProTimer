@@ -8,6 +8,8 @@ module com.sk.protimer {
     requires com.fasterxml.jackson.dataformat.yaml;
     requires com.fasterxml.jackson.databind;
     requires  com.fasterxml.jackson.annotation;
+    requires jnativehook;
+    requires javafx.media;
 
     opens com.sk.protimer.listener;
     opens com.sk.protimer.controller;

@@ -19,7 +19,10 @@ import com.sk.protimer.Entry
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
+import javafx.scene.media.Media
+import javafx.scene.media.MediaPlayer
 import javafx.stage.Stage
+import org.jnativehook.GlobalScreen
 
 import java.nio.channels.FileChannel
 import java.nio.file.Files
@@ -108,6 +111,10 @@ class AppController {
     final String spacing = ">  "
     //APP version
     final String APP_VERSION = "V 1.1"
+    //For shortcut triggered notifier
+    Media notificationMediaPause = new Media(getClass().getResource(Entry.resourcePath+"/media/pause.wav").toURI().toString());
+    Media notificationMediaResume = new Media(getClass().getResource(Entry.resourcePath+"/media/resume.wav").toURI().toString());
+    Media notificationMediaNoProject = new Media(getClass().getResource(Entry.resourcePath+"/media/empty.wav").toURI().toString());
     /**
      * creating app-controller instance
      */
@@ -358,9 +365,17 @@ class AppController {
         }
         //pushing history buffer into registry
         commitRegistry()
+        unregisterGlobalKeyListener()
         if (timer!=null) timer.cancel()
         if (dateRefresh!=null) dateRefresh.cancel()
         Platform.exit()
+    }
+    /**
+     *
+     * Unregistering Global Key Listener
+     */
+    def unregisterGlobalKeyListener(){
+        GlobalScreen.unregisterNativeHook()
     }
     /**
      * @WARNING
@@ -389,4 +404,24 @@ class AppController {
         return url;
     }
 
+    void pauseOrResumeTask() {
+        if (projectPath==null){
+            //Project hasn't selected
+            println("ProjectPath not selected")
+            notifyViaMedia(notificationMediaNoProject)
+            return
+        }
+        if (loggerStarted.get()){
+            onLogging()
+            notifyViaMedia(notificationMediaPause)
+            println("ProTimer got Paused")
+        }else {
+            onLogging()
+            notifyViaMedia(notificationMediaResume)
+            println("ProTimer got Resumed")
+        }
+    }
+    void notifyViaMedia(Media media){
+        new MediaPlayer(media).play()
+    }
 }
